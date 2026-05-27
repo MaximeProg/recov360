@@ -1,0 +1,711 @@
+﻿2026-05-26 18:02:06,957 INFO sqlalchemy.engine.Engine select pg_catalog.version()
+2026-05-26 18:02:06,958 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-05-26 18:02:07,682 INFO sqlalchemy.engine.Engine select current_schema()
+2026-05-26 18:02:07,682 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-05-26 18:02:08,620 INFO sqlalchemy.engine.Engine show standard_conforming_strings
+2026-05-26 18:02:08,620 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-05-26 18:02:09,305 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:09,370 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-26 18:02:09,371 INFO sqlalchemy.engine.Engine [generated in 0.00056s] ('admin814920@pharma.ci',)
+2026-05-26 18:02:11,540 INFO sqlalchemy.engine.Engine INSERT INTO companies (name, email, phone, address, country, city, sector, logo_url, primary_color, secondary_color, signature, is_active, plan, id, deleted_at) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::VARCHAR, $12::BOOLEAN, $13::VARCHAR, $14::UUID, $15::TIMESTAMP WITH TIME ZONE) RETURNING companies.created_at, companies.updated_at
+2026-05-26 18:02:11,541 INFO sqlalchemy.engine.Engine [generated in 0.00052s] ('Test Pharma 814920', 'pharma814920@ci.com', None, None, "C�te d'Ivoire", None, None, None, '#2563EB', '#1E40AF', None, True, 'starter', UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), None)
+python : (trapped) error reading bcrypt version
+Au caractère Ligne:1 : 27
++ cd "e:\Recov360\backend"; python test_full_api.py 2>&1 | Out-File -Fi ...
++                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((trapped) error reading bcrypt version:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Traceback (most recent call last):
+  File "C:\Users\kakpo\AppData\Local\Programs\Python\Python314\Lib\site-packages\passlib\handlers\bcrypt.py", line 
+620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+2026-05-26 18:02:12,384 INFO sqlalchemy.engine.Engine INSERT INTO users (company_id, email, password_hash, first_name, last_name, phone, role, is_active, is_verified, last_login, avatar_url, fcm_token, id, deleted_at) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::userrole, $8::BOOLEAN, $9::BOOLEAN, $10::TIMESTAMP WITH TIME ZONE, $11::VARCHAR, $12::VARCHAR, $13::UUID, $14::TIMESTAMP WITH TIME ZONE) RETURNING users.created_at, users.updated_at
+2026-05-26 18:02:12,384 INFO sqlalchemy.engine.Engine [generated in 0.00034s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 'admin814920@pharma.ci', '$2b$12$6mtrpiots9P/ErOcE63Jt.xlogfDMSYhWsxE.NN8F82yZfdY8KZkW', 'Kouame', 'Test', None, 'admin', True, False, None, None, None, UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), None)
+2026-05-26 18:02:12,903 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:14,081 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:14,083 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.email = $1::VARCHAR AND users.deleted_at IS NULL
+2026-05-26 18:02:14,083 INFO sqlalchemy.engine.Engine [generated in 0.00020s] ('admin814920@pharma.ci',)
+2026-05-26 18:02:15,113 INFO sqlalchemy.engine.Engine UPDATE users SET last_login=$1::TIMESTAMP WITH TIME ZONE, updated_at=now() WHERE users.id = $2::UUID
+2026-05-26 18:02:15,114 INFO sqlalchemy.engine.Engine [generated in 0.00041s] (datetime.datetime(2026, 5, 26, 17, 2, 15, 110309, tzinfo=datetime.timezone.utc), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'))
+2026-05-26 18:02:15,608 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:16,641 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:16,641 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.email = $1::VARCHAR AND users.deleted_at IS NULL
+2026-05-26 18:02:16,642 INFO sqlalchemy.engine.Engine [cached since 2.559s ago] ('bad@bad.com',)
+2026-05-26 18:02:17,121 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-05-26 18:02:18,122 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:18,123 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:18,123 INFO sqlalchemy.engine.Engine [generated in 0.00018s] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:18,840 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:19,821 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:19,821 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:19,821 INFO sqlalchemy.engine.Engine [cached since 1.699s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:20,289 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:21,297 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:21,298 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:21,299 INFO sqlalchemy.engine.Engine [cached since 3.176s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:22,527 INFO sqlalchemy.engine.Engine UPDATE users SET password_hash=$1::VARCHAR, updated_at=now() WHERE users.id = $2::UUID
+2026-05-26 18:02:22,527 INFO sqlalchemy.engine.Engine [generated in 0.00022s] ('$2b$12$dWzAbRM04cTRbyiiYkzqheVMS7iKDim4Hjd8AK.2kATNZgk83x1fy', UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'))
+2026-05-26 18:02:23,003 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:23,953 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:23,954 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.email = $1::VARCHAR AND users.deleted_at IS NULL
+2026-05-26 18:02:23,954 INFO sqlalchemy.engine.Engine [cached since 9.871s ago] ('admin814920@pharma.ci',)
+2026-05-26 18:02:24,940 INFO sqlalchemy.engine.Engine UPDATE users SET last_login=$1::TIMESTAMP WITH TIME ZONE, updated_at=now() WHERE users.id = $2::UUID
+2026-05-26 18:02:24,940 INFO sqlalchemy.engine.Engine [cached since 9.827s ago] (datetime.datetime(2026, 5, 26, 17, 2, 24, 939094, tzinfo=datetime.timezone.utc), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'))
+2026-05-26 18:02:25,181 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:26,122 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:26,122 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:26,122 INFO sqlalchemy.engine.Engine [cached since 8s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:26,610 INFO sqlalchemy.engine.Engine SELECT companies.name, companies.email, companies.phone, companies.address, companies.country, companies.city, companies.sector, companies.logo_url, companies.primary_color, companies.secondary_color, companies.signature, companies.smtp_config, companies.branding, companies.is_active, companies.plan, companies.id, companies.created_at, companies.updated_at, companies.deleted_at 
+FROM companies 
+WHERE companies.id = $1::UUID AND companies.deleted_at IS NULL
+2026-05-26 18:02:26,610 INFO sqlalchemy.engine.Engine [generated in 0.00021s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:02:27,128 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:28,121 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:28,121 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:28,121 INFO sqlalchemy.engine.Engine [cached since 9.999s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:28,614 INFO sqlalchemy.engine.Engine SELECT companies.name, companies.email, companies.phone, companies.address, companies.country, companies.city, companies.sector, companies.logo_url, companies.primary_color, companies.secondary_color, companies.signature, companies.smtp_config, companies.branding, companies.is_active, companies.plan, companies.id, companies.created_at, companies.updated_at, companies.deleted_at 
+FROM companies 
+WHERE companies.id = $1::UUID AND companies.deleted_at IS NULL
+2026-05-26 18:02:28,615 INFO sqlalchemy.engine.Engine [cached since 2.005s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:02:28,871 INFO sqlalchemy.engine.Engine UPDATE companies SET city=$1::VARCHAR, sector=$2::VARCHAR, primary_color=$3::VARCHAR, updated_at=now() WHERE companies.id = $4::UUID
+2026-05-26 18:02:28,871 INFO sqlalchemy.engine.Engine [generated in 0.00025s] ('Abidjan', 'Pharmacie', '#1D4ED8', UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:02:29,381 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:30,301 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:30,301 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:30,301 INFO sqlalchemy.engine.Engine [cached since 12.18s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:30,823 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT users.company_id AS company_id, users.email AS email, users.password_hash AS password_hash, users.first_name AS first_name, users.last_name AS last_name, users.phone AS phone, users.role AS role, users.is_active AS is_active, users.is_verified AS is_verified, users.last_login AS last_login, users.avatar_url AS avatar_url, users.fcm_token AS fcm_token, users.id AS id, users.created_at AS created_at, users.updated_at AS updated_at, users.deleted_at AS deleted_at 
+FROM users 
+WHERE users.company_id = $1::UUID AND users.deleted_at IS NULL) AS anon_1
+2026-05-26 18:02:30,823 INFO sqlalchemy.engine.Engine [generated in 0.00033s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:02:31,328 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.company_id = $1::UUID AND users.deleted_at IS NULL ORDER BY users.created_at DESC 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER
+2026-05-26 18:02:31,328 INFO sqlalchemy.engine.Engine [generated in 0.00026s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 20, 0)
+2026-05-26 18:02:31,816 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:32,864 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:32,864 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:32,865 INFO sqlalchemy.engine.Engine [cached since 14.74s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:33,377 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-26 18:02:33,378 INFO sqlalchemy.engine.Engine [cached since 24.01s ago] ('agent814920@pharma.ci',)
+2026-05-26 18:02:34,107 INFO sqlalchemy.engine.Engine INSERT INTO users (company_id, email, password_hash, first_name, last_name, phone, role, is_active, is_verified, last_login, avatar_url, fcm_token, id, deleted_at) VALUES ($1::UUID, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::userrole, $8::BOOLEAN, $9::BOOLEAN, $10::TIMESTAMP WITH TIME ZONE, $11::VARCHAR, $12::VARCHAR, $13::UUID, $14::TIMESTAMP WITH TIME ZONE) RETURNING users.created_at, users.updated_at
+2026-05-26 18:02:34,107 INFO sqlalchemy.engine.Engine [generated in 0.00040s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 'agent814920@pharma.ci', '$2b$12$iaOac4fBasesLkbff5AAdOY2kJik/AFr.kFzkw1prCxnanumEVtZe', 'Awa', 'Diallo', None, 'agent', True, False, None, None, None, UUID('7c06fee8-4d36-4fab-b864-842b848acec5'), None)
+2026-05-26 18:02:34,369 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:35,320 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:35,321 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:35,321 INFO sqlalchemy.engine.Engine [cached since 17.2s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:35,842 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.company_id = $2::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:35,842 INFO sqlalchemy.engine.Engine [generated in 0.00021s] (UUID('7c06fee8-4d36-4fab-b864-842b848acec5'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:02:36,362 INFO sqlalchemy.engine.Engine UPDATE users SET phone=$1::VARCHAR, updated_at=now() WHERE users.id = $2::UUID
+2026-05-26 18:02:36,362 INFO sqlalchemy.engine.Engine [generated in 0.00021s] ('+22507000000', UUID('7c06fee8-4d36-4fab-b864-842b848acec5'))
+2026-05-26 18:02:36,928 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:37,930 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:37,930 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:37,930 INFO sqlalchemy.engine.Engine [cached since 19.81s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:38,395 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT debtors.company_id AS company_id, debtors.created_by AS created_by, debtors.name AS name, debtors.phone AS phone, debtors.email AS email, debtors.address AS address, debtors.company_name AS company_name, debtors.city AS city, debtors.country AS country, debtors.category AS category, debtors.risk_level AS risk_level, debtors.risk_score AS risk_score, debtors.identity_doc_url AS identity_doc_url, debtors.photo_url AS photo_url, debtors.tags AS tags, debtors.notes AS notes, debtors.geo_location AS geo_location, debtors.total_due AS total_due, debtors.total_paid AS total_paid, debtors.id AS id, debtors.created_at AS created_at, debtors.updated_at AS updated_at, debtors.deleted_at AS deleted_at 
+FROM debtors 
+WHERE debtors.company_id = $1::UUID AND debtors.deleted_at IS NULL) AS anon_1
+2026-05-26 18:02:38,395 INFO sqlalchemy.engine.Engine [generated in 0.00024s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:02:38,882 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.company_id = $1::UUID AND debtors.deleted_at IS NULL ORDER BY debtors.created_at DESC 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER
+2026-05-26 18:02:38,882 INFO sqlalchemy.engine.Engine [generated in 0.00022s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 20, 0)
+2026-05-26 18:02:40,112 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:41,213 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:41,214 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:41,214 INFO sqlalchemy.engine.Engine [cached since 23.09s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:41,700 INFO sqlalchemy.engine.Engine INSERT INTO debtors (company_id, created_by, name, phone, email, address, company_name, city, country, category, risk_level, risk_score, identity_doc_url, photo_url, tags, notes, total_due, total_paid, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::debtorcategory, $11::risklevel, $12::FLOAT, $13::VARCHAR, $14::VARCHAR, $15::JSON, $16::JSON, $17::FLOAT, $18::FLOAT, $19::UUID, $20::TIMESTAMP WITH TIME ZONE) RETURNING debtors.created_at, debtors.updated_at
+2026-05-26 18:02:41,700 INFO sqlalchemy.engine.Engine [generated in 0.00051s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 'Pharmacie Centrale Abidjan', '+22507123456', 'centrale@pharma.ci', None, 'PCA SARL', 'Abidjan', "C�te d'Ivoire", 'entreprise', 'faible', 0.0, None, None, '["pharmacie", "grossiste"]', '[]', 0.0, 0.0, UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), None)
+2026-05-26 18:02:42,236 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:43,162 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:43,163 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:43,163 INFO sqlalchemy.engine.Engine [cached since 25.04s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:43,629 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID AND debtors.company_id = $2::UUID AND debtors.deleted_at IS NULL
+2026-05-26 18:02:43,629 INFO sqlalchemy.engine.Engine [generated in 0.00022s] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:02:44,179 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:45,166 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:45,166 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:45,166 INFO sqlalchemy.engine.Engine [cached since 27.04s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:45,636 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID AND debtors.company_id = $2::UUID AND debtors.deleted_at IS NULL
+2026-05-26 18:02:45,636 INFO sqlalchemy.engine.Engine [cached since 2.008s ago] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:02:45,880 INFO sqlalchemy.engine.Engine UPDATE debtors SET city=$1::VARCHAR, updated_at=now() WHERE debtors.id = $2::UUID
+2026-05-26 18:02:45,880 INFO sqlalchemy.engine.Engine [generated in 0.00023s] ('Cocody', UUID('753c98f8-ef93-4996-9832-d72db4d1c813'))
+2026-05-26 18:02:46,347 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:47,417 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:47,418 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:47,418 INFO sqlalchemy.engine.Engine [cached since 29.3s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:47,890 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID AND debtors.company_id = $2::UUID AND debtors.deleted_at IS NULL
+2026-05-26 18:02:47,891 INFO sqlalchemy.engine.Engine [cached since 4.262s ago] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:02:48,135 INFO sqlalchemy.engine.Engine UPDATE debtors SET notes=$1::JSON, updated_at=now() WHERE debtors.id = $2::UUID
+2026-05-26 18:02:48,135 INFO sqlalchemy.engine.Engine [generated in 0.00038s] ('[{"content": "Client difficile, appeler avant 15h", "author": "Kouame", "created_at": "2026-05-26T17:02:48.132884+00:00"}]', UUID('753c98f8-ef93-4996-9832-d72db4d1c813'))
+2026-05-26 18:02:48,633 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:49,581 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:49,582 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:49,582 INFO sqlalchemy.engine.Engine [cached since 31.46s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:50,073 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT debtors.company_id AS company_id, debtors.created_by AS created_by, debtors.name AS name, debtors.phone AS phone, debtors.email AS email, debtors.address AS address, debtors.company_name AS company_name, debtors.city AS city, debtors.country AS country, debtors.category AS category, debtors.risk_level AS risk_level, debtors.risk_score AS risk_score, debtors.identity_doc_url AS identity_doc_url, debtors.photo_url AS photo_url, debtors.tags AS tags, debtors.notes AS notes, debtors.geo_location AS geo_location, debtors.total_due AS total_due, debtors.total_paid AS total_paid, debtors.id AS id, debtors.created_at AS created_at, debtors.updated_at AS updated_at, debtors.deleted_at AS deleted_at 
+FROM debtors 
+WHERE debtors.company_id = $1::UUID AND debtors.deleted_at IS NULL AND (debtors.name ILIKE $2::VARCHAR OR debtors.phone ILIKE $3::VARCHAR OR debtors.email ILIKE $4::VARCHAR OR debtors.company_name ILIKE $5::VARCHAR)) AS anon_1
+2026-05-26 18:02:50,073 INFO sqlalchemy.engine.Engine [generated in 0.00044s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), '%Pharmacie%', '%Pharmacie%', '%Pharmacie%', '%Pharmacie%')
+2026-05-26 18:02:50,576 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.company_id = $1::UUID AND debtors.deleted_at IS NULL AND (debtors.name ILIKE $2::VARCHAR OR debtors.phone ILIKE $3::VARCHAR OR debtors.email ILIKE $4::VARCHAR OR debtors.company_name ILIKE $5::VARCHAR) ORDER BY debtors.created_at DESC 
+ LIMIT $6::INTEGER OFFSET $7::INTEGER
+2026-05-26 18:02:50,577 INFO sqlalchemy.engine.Engine [generated in 0.00042s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), '%Pharmacie%', '%Pharmacie%', '%Pharmacie%', '%Pharmacie%', 20, 0)
+2026-05-26 18:02:51,065 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:52,012 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:52,013 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:52,013 INFO sqlalchemy.engine.Engine [cached since 33.89s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:52,530 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID AND debtors.company_id = $2::UUID
+2026-05-26 18:02:52,530 INFO sqlalchemy.engine.Engine [generated in 0.00037s] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:02:53,347 INFO sqlalchemy.engine.Engine INSERT INTO invoices (company_id, debtor_id, created_by, invoice_number, description, currency, amount, amount_paid, penalty_rate, penalty_amount, due_date, paid_date, status, pdf_url, reminder_level, notes, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::FLOAT, $8::FLOAT, $9::FLOAT, $10::FLOAT, $11::DATE, $12::DATE, $13::invoicestatus, $14::VARCHAR, $15::INTEGER, $16::VARCHAR, $17::UUID, $18::TIMESTAMP WITH TIME ZONE) RETURNING invoices.created_at, invoices.updated_at
+2026-05-26 18:02:53,347 INFO sqlalchemy.engine.Engine [generated in 0.00044s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 'FAC-20260526170253-EF8B7E', 'Livraison m�dicaments Mars 2026', 'XOF', 1500000.0, 0.0, 0.0, 0.0, datetime.date(2026, 6, 25), None, 'en_attente', None, 0, None, UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), None)
+2026-05-26 18:02:54,830 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.company_id = $1::UUID AND users.role IN ($2::userrole, $3::userrole) AND users.is_active IS true AND users.deleted_at IS NULL
+2026-05-26 18:02:54,830 INFO sqlalchemy.engine.Engine [generated in 0.00033s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 'admin', 'superviseur')
+2026-05-26 18:02:55,342 INFO sqlalchemy.engine.Engine UPDATE debtors SET total_due=$1::FLOAT, updated_at=now() WHERE debtors.id = $2::UUID
+2026-05-26 18:02:55,342 INFO sqlalchemy.engine.Engine [generated in 0.00032s] (1500000.0, UUID('753c98f8-ef93-4996-9832-d72db4d1c813'))
+2026-05-26 18:02:55,855 INFO sqlalchemy.engine.Engine INSERT INTO notifications (company_id, user_id, title, message, notification_type, is_read, action_url, entity_type, entity_id, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::notificationtype, $6::BOOLEAN, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::UUID, $11::TIMESTAMP WITH TIME ZONE) RETURNING notifications.created_at, notifications.updated_at
+2026-05-26 18:02:55,856 INFO sqlalchemy.engine.Engine [generated in 0.00056s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 'Nouvelle cr�ance enregistr�e', 'Pharmacie Centrale Abidjan � 1,500,000 XOF �ch�ance 25/06/2026', 'nouvelle_creance', False, '/invoices/ba8cb397-8ae0-4314-b332-ad348ef27cb1', 'invoice', 'ba8cb397-8ae0-4314-b332-ad348ef27cb1', UUID('f5fc7749-ac7b-45db-8e5b-2839d0a53279'), None)
+2026-05-26 18:02:57,078 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:02:58,115 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:02:58,116 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:02:58,116 INFO sqlalchemy.engine.Engine [cached since 39.99s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:02:58,666 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT invoices.company_id AS company_id, invoices.debtor_id AS debtor_id, invoices.created_by AS created_by, invoices.invoice_number AS invoice_number, invoices.description AS description, invoices.currency AS currency, invoices.amount AS amount, invoices.amount_paid AS amount_paid, invoices.penalty_rate AS penalty_rate, invoices.penalty_amount AS penalty_amount, invoices.due_date AS due_date, invoices.paid_date AS paid_date, invoices.status AS status, invoices.pdf_url AS pdf_url, invoices.reminder_level AS reminder_level, invoices.notes AS notes, invoices.id AS id, invoices.created_at AS created_at, invoices.updated_at AS updated_at, invoices.deleted_at AS deleted_at 
+FROM invoices 
+WHERE invoices.company_id = $1::UUID AND invoices.deleted_at IS NULL) AS anon_1
+2026-05-26 18:02:58,667 INFO sqlalchemy.engine.Engine [generated in 0.00077s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:02:59,177 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.company_id = $1::UUID AND invoices.deleted_at IS NULL ORDER BY invoices.created_at DESC 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER
+2026-05-26 18:02:59,177 INFO sqlalchemy.engine.Engine [generated in 0.00030s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 20, 0)
+2026-05-26 18:02:59,668 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:00,629 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:00,630 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:00,630 INFO sqlalchemy.engine.Engine [cached since 42.51s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:01,129 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.id = $1::UUID AND invoices.company_id = $2::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:03:01,129 INFO sqlalchemy.engine.Engine [generated in 0.00025s] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:01,668 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:02,720 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:02,720 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:02,720 INFO sqlalchemy.engine.Engine [cached since 44.6s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:03,225 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.id = $1::UUID AND invoices.company_id = $2::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:03:03,225 INFO sqlalchemy.engine.Engine [cached since 2.096s ago] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:03,461 INFO sqlalchemy.engine.Engine UPDATE invoices SET description=$1::VARCHAR, updated_at=now() WHERE invoices.id = $2::UUID
+2026-05-26 18:03:03,461 INFO sqlalchemy.engine.Engine [generated in 0.00023s] ('Livraison m�dicaments Mars 2026 � r�vis�', UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'))
+2026-05-26 18:03:04,010 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:05,094 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:05,094 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:05,094 INFO sqlalchemy.engine.Engine [cached since 46.97s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:05,581 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.id = $1::UUID AND invoices.company_id = $2::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:03:05,581 INFO sqlalchemy.engine.Engine [cached since 4.452s ago] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:05,840 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID
+2026-05-26 18:03:05,840 INFO sqlalchemy.engine.Engine [generated in 0.00066s] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'),)
+2026-05-26 18:03:06,407 INFO sqlalchemy.engine.Engine UPDATE debtors SET total_paid=$1::FLOAT, updated_at=now() WHERE debtors.id = $2::UUID
+2026-05-26 18:03:06,407 INFO sqlalchemy.engine.Engine [generated in 0.00023s] (500000.0, UUID('753c98f8-ef93-4996-9832-d72db4d1c813'))
+2026-05-26 18:03:06,904 INFO sqlalchemy.engine.Engine UPDATE invoices SET amount_paid=$1::FLOAT, status=$2::invoicestatus, updated_at=now() WHERE invoices.id = $3::UUID
+2026-05-26 18:03:06,904 INFO sqlalchemy.engine.Engine [generated in 0.00034s] (500000.0, 'partiellement_paye', UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'))
+2026-05-26 18:03:07,424 INFO sqlalchemy.engine.Engine INSERT INTO payments (invoice_id, company_id, created_by, amount, payment_date, method, reference, proof_url, notes, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::FLOAT, $5::DATE, $6::paymentmethod, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::UUID, $11::TIMESTAMP WITH TIME ZONE) RETURNING payments.created_at, payments.updated_at
+2026-05-26 18:03:07,424 INFO sqlalchemy.engine.Engine [generated in 0.00055s] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 500000.0, datetime.date(2026, 5, 26), 'mobile_money', 'MOMO-2026-001', None, None, UUID('a660137b-3e71-49f1-8f1f-aa5708876086'), None)
+2026-05-26 18:03:08,710 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.company_id = $1::UUID AND users.role IN ($2::userrole, $3::userrole) AND users.is_active IS true AND users.deleted_at IS NULL
+2026-05-26 18:03:08,711 INFO sqlalchemy.engine.Engine [cached since 13.88s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 'admin', 'superviseur')
+2026-05-26 18:03:08,959 INFO sqlalchemy.engine.Engine INSERT INTO notifications (company_id, user_id, title, message, notification_type, is_read, action_url, entity_type, entity_id, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::notificationtype, $6::BOOLEAN, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::UUID, $11::TIMESTAMP WITH TIME ZONE) RETURNING notifications.created_at, notifications.updated_at
+2026-05-26 18:03:08,959 INFO sqlalchemy.engine.Engine [cached since 13.1s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 'Paiement re�u', 'Paiement de 500,000 XOF re�u sur FAC-20260526170253-EF8B7E � Reste 1,000,000', 'paiement_recu', False, '/invoices/ba8cb397-8ae0-4314-b332-ad348ef27cb1', 'invoice', 'ba8cb397-8ae0-4314-b332-ad348ef27cb1', UUID('3cf9e9eb-d5cb-4ce0-ac30-09d68ff90ce4'), None)
+2026-05-26 18:03:09,213 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:10,171 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:10,172 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:10,172 INFO sqlalchemy.engine.Engine [cached since 52.05s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:10,657 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.id = $1::UUID AND invoices.company_id = $2::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:03:10,658 INFO sqlalchemy.engine.Engine [cached since 9.529s ago] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:10,907 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:11,877 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:11,877 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:11,877 INFO sqlalchemy.engine.Engine [cached since 53.75s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:12,363 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.id = $1::UUID AND invoices.company_id = $2::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:03:12,363 INFO sqlalchemy.engine.Engine [cached since 11.23s ago] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:12,593 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID
+2026-05-26 18:03:12,593 INFO sqlalchemy.engine.Engine [cached since 6.754s ago] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'),)
+2026-05-26 18:03:12,825 INFO sqlalchemy.engine.Engine UPDATE debtors SET total_paid=$1::FLOAT, updated_at=now() WHERE debtors.id = $2::UUID
+2026-05-26 18:03:12,825 INFO sqlalchemy.engine.Engine [cached since 6.418s ago] (1500000.0, UUID('753c98f8-ef93-4996-9832-d72db4d1c813'))
+2026-05-26 18:03:13,057 INFO sqlalchemy.engine.Engine UPDATE invoices SET amount_paid=$1::FLOAT, paid_date=$2::DATE, status=$3::invoicestatus, updated_at=now() WHERE invoices.id = $4::UUID
+2026-05-26 18:03:13,057 INFO sqlalchemy.engine.Engine [generated in 0.00025s] (1500000.0, datetime.date(2026, 5, 26), 'solde', UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'))
+2026-05-26 18:03:13,520 INFO sqlalchemy.engine.Engine INSERT INTO payments (invoice_id, company_id, created_by, amount, payment_date, method, reference, proof_url, notes, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::FLOAT, $5::DATE, $6::paymentmethod, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::UUID, $11::TIMESTAMP WITH TIME ZONE) RETURNING payments.created_at, payments.updated_at
+2026-05-26 18:03:13,520 INFO sqlalchemy.engine.Engine [cached since 6.096s ago] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 1000000.0, datetime.date(2026, 5, 26), 'virement', None, None, None, UUID('16c3bcb6-6f26-45b9-8dec-2ad735446eb3'), None)
+2026-05-26 18:03:13,775 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.company_id = $1::UUID AND users.role IN ($2::userrole, $3::userrole) AND users.is_active IS true AND users.deleted_at IS NULL
+2026-05-26 18:03:13,775 INFO sqlalchemy.engine.Engine [cached since 18.95s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 'admin', 'superviseur')
+2026-05-26 18:03:14,013 INFO sqlalchemy.engine.Engine INSERT INTO notifications (company_id, user_id, title, message, notification_type, is_read, action_url, entity_type, entity_id, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::notificationtype, $6::BOOLEAN, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::UUID, $11::TIMESTAMP WITH TIME ZONE) RETURNING notifications.created_at, notifications.updated_at
+2026-05-26 18:03:14,013 INFO sqlalchemy.engine.Engine [cached since 18.16s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 'Paiement re�u', 'Facture FAC-20260526170253-EF8B7E enti�rement sold�e � 1,500,000 XOF', 'paiement_recu', False, '/invoices/ba8cb397-8ae0-4314-b332-ad348ef27cb1', 'invoice', 'ba8cb397-8ae0-4314-b332-ad348ef27cb1', UUID('cfafc61f-64af-4da1-b6cb-ba095c9880db'), None)
+2026-05-26 18:03:14,248 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:15,197 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:15,199 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:15,199 INFO sqlalchemy.engine.Engine [cached since 57.08s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:15,668 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.id = $1::UUID AND invoices.company_id = $2::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:03:15,669 INFO sqlalchemy.engine.Engine [cached since 14.54s ago] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:15,910 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:16,862 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:16,862 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:16,863 INFO sqlalchemy.engine.Engine [cached since 58.74s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:17,356 INFO sqlalchemy.engine.Engine INSERT INTO message_templates (company_id, name, channel, subject, body, variables, language, is_default, is_active, id, deleted_at) VALUES ($1::UUID, $2::VARCHAR, $3::templatechannel, $4::VARCHAR, $5::VARCHAR, $6::JSON, $7::VARCHAR, $8::BOOLEAN, $9::BOOLEAN, $10::UUID, $11::TIMESTAMP WITH TIME ZONE) RETURNING message_templates.created_at, message_templates.updated_at
+2026-05-26 18:03:17,356 INFO sqlalchemy.engine.Engine [generated in 0.00032s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 'Rappel J-7', 'email', 'Rappel paiement � {{invoice_number}}', 'Bonjour {{debtor_name}}, votre facture {{invoice_number}} de {{amount}} est due le {{due_date}}.', '["debtor_name", "invoice_number", "amount", "due_date"]', 'fr', False, True, UUID('e935e654-ba10-4b3f-b679-3e92bd7781db'), None)
+2026-05-26 18:03:18,547 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:19,480 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:19,480 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:19,480 INFO sqlalchemy.engine.Engine [cached since 61.36s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:19,970 INFO sqlalchemy.engine.Engine SELECT message_templates.company_id, message_templates.name, message_templates.channel, message_templates.subject, message_templates.body, message_templates.variables, message_templates.language, message_templates.is_default, message_templates.is_active, message_templates.id, message_templates.created_at, message_templates.updated_at, message_templates.deleted_at 
+FROM message_templates 
+WHERE message_templates.company_id = $1::UUID AND message_templates.deleted_at IS NULL ORDER BY message_templates.created_at DESC
+2026-05-26 18:03:19,970 INFO sqlalchemy.engine.Engine [generated in 0.00034s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:03:20,481 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:21,447 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:21,448 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:21,448 INFO sqlalchemy.engine.Engine [cached since 63.33s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:21,920 INFO sqlalchemy.engine.Engine INSERT INTO workflow_rules (company_id, template_id, name, trigger_days, channel, level, is_active, "order", id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::INTEGER, $5::workflowchannel, $6::workflowlevel, $7::BOOLEAN, $8::INTEGER, $9::UUID, $10::TIMESTAMP WITH TIME ZONE) RETURNING workflow_rules.created_at, workflow_rules.updated_at
+2026-05-26 18:03:21,920 INFO sqlalchemy.engine.Engine [generated in 0.00031s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('e935e654-ba10-4b3f-b679-3e92bd7781db'), 'Rappel 7 jours avant', -7, 'email', 'niveau_1', True, 0, UUID('858f83a2-5456-4f9f-8705-ca1c15f76a98'), None)
+2026-05-26 18:03:23,240 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:24,177 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:24,178 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:24,178 INFO sqlalchemy.engine.Engine [cached since 66.06s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:24,730 INFO sqlalchemy.engine.Engine SELECT workflow_rules.company_id, workflow_rules.template_id, workflow_rules.name, workflow_rules.trigger_days, workflow_rules.channel, workflow_rules.level, workflow_rules.is_active, workflow_rules."order", workflow_rules.id, workflow_rules.created_at, workflow_rules.updated_at, workflow_rules.deleted_at 
+FROM workflow_rules 
+WHERE workflow_rules.company_id = $1::UUID AND workflow_rules.deleted_at IS NULL ORDER BY workflow_rules."order"
+2026-05-26 18:03:24,730 INFO sqlalchemy.engine.Engine [generated in 0.00038s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:03:25,241 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:26,213 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:26,214 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:26,214 INFO sqlalchemy.engine.Engine [cached since 68.09s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:26,707 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID AND debtors.company_id = $2::UUID
+2026-05-26 18:03:26,707 INFO sqlalchemy.engine.Engine [cached since 34.18s ago] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:26,949 INFO sqlalchemy.engine.Engine INSERT INTO invoices (company_id, debtor_id, created_by, invoice_number, description, currency, amount, amount_paid, penalty_rate, penalty_amount, due_date, paid_date, status, pdf_url, reminder_level, notes, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::VARCHAR, $5::VARCHAR, $6::VARCHAR, $7::FLOAT, $8::FLOAT, $9::FLOAT, $10::FLOAT, $11::DATE, $12::DATE, $13::invoicestatus, $14::VARCHAR, $15::INTEGER, $16::VARCHAR, $17::UUID, $18::TIMESTAMP WITH TIME ZONE) RETURNING invoices.created_at, invoices.updated_at
+2026-05-26 18:03:26,950 INFO sqlalchemy.engine.Engine [cached since 33.6s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 'FAC-20260526170326-35E265', None, 'XOF', 800000.0, 0.0, 0.0, 0.0, datetime.date(2026, 6, 10), None, 'en_attente', None, 0, None, UUID('0c494530-1e1f-4d59-8b8e-1db26108de54'), None)
+2026-05-26 18:03:27,193 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.company_id = $1::UUID AND users.role IN ($2::userrole, $3::userrole) AND users.is_active IS true AND users.deleted_at IS NULL
+2026-05-26 18:03:27,193 INFO sqlalchemy.engine.Engine [cached since 32.36s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 'admin', 'superviseur')
+2026-05-26 18:03:27,435 INFO sqlalchemy.engine.Engine UPDATE debtors SET total_due=$1::FLOAT, updated_at=now() WHERE debtors.id = $2::UUID
+2026-05-26 18:03:27,435 INFO sqlalchemy.engine.Engine [cached since 32.09s ago] (2300000.0, UUID('753c98f8-ef93-4996-9832-d72db4d1c813'))
+2026-05-26 18:03:27,669 INFO sqlalchemy.engine.Engine INSERT INTO notifications (company_id, user_id, title, message, notification_type, is_read, action_url, entity_type, entity_id, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::notificationtype, $6::BOOLEAN, $7::VARCHAR, $8::VARCHAR, $9::VARCHAR, $10::UUID, $11::TIMESTAMP WITH TIME ZONE) RETURNING notifications.created_at, notifications.updated_at
+2026-05-26 18:03:27,669 INFO sqlalchemy.engine.Engine [cached since 31.81s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 'Nouvelle cr�ance enregistr�e', 'Pharmacie Centrale Abidjan � 800,000 XOF �ch�ance 10/06/2026', 'nouvelle_creance', False, '/invoices/0c494530-1e1f-4d59-8b8e-1db26108de54', 'invoice', '0c494530-1e1f-4d59-8b8e-1db26108de54', UUID('de0efaa5-120f-4333-bd7a-87b4fbd934e1'), None)
+2026-05-26 18:03:27,912 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:29,001 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:29,001 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:29,001 INFO sqlalchemy.engine.Engine [cached since 70.88s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:29,623 INFO sqlalchemy.engine.Engine INSERT INTO promises_to_pay (invoice_id, company_id, debtor_id, created_by, promised_date, promised_amount, status, notes, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::UUID, $5::DATE, $6::FLOAT, $7::promisestatus, $8::VARCHAR, $9::UUID, $10::TIMESTAMP WITH TIME ZONE) RETURNING promises_to_pay.created_at, promises_to_pay.updated_at
+2026-05-26 18:03:29,623 INFO sqlalchemy.engine.Engine [generated in 0.00031s] (UUID('0c494530-1e1f-4d59-8b8e-1db26108de54'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), datetime.date(2026, 6, 5), 800000.0, 'pending', 'Client a promis de payer avant le 5 juin', UUID('1c21c0c0-c9dc-45b2-8b59-b1d52e81721c'), None)
+2026-05-26 18:03:30,979 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:31,942 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:31,942 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:31,942 INFO sqlalchemy.engine.Engine [cached since 73.82s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:32,459 INFO sqlalchemy.engine.Engine SELECT promises_to_pay.invoice_id, promises_to_pay.company_id, promises_to_pay.debtor_id, promises_to_pay.created_by, promises_to_pay.promised_date, promises_to_pay.promised_amount, promises_to_pay.status, promises_to_pay.notes, promises_to_pay.id, promises_to_pay.created_at, promises_to_pay.updated_at, promises_to_pay.deleted_at 
+FROM promises_to_pay 
+WHERE promises_to_pay.company_id = $1::UUID AND promises_to_pay.deleted_at IS NULL ORDER BY promises_to_pay.promised_date
+2026-05-26 18:03:32,459 INFO sqlalchemy.engine.Engine [generated in 0.00022s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:03:32,944 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:33,944 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:33,944 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:33,944 INFO sqlalchemy.engine.Engine [cached since 75.82s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:34,612 INFO sqlalchemy.engine.Engine SELECT promises_to_pay.invoice_id, promises_to_pay.company_id, promises_to_pay.debtor_id, promises_to_pay.created_by, promises_to_pay.promised_date, promises_to_pay.promised_amount, promises_to_pay.status, promises_to_pay.notes, promises_to_pay.id, promises_to_pay.created_at, promises_to_pay.updated_at, promises_to_pay.deleted_at 
+FROM promises_to_pay 
+WHERE promises_to_pay.id = $1::UUID AND promises_to_pay.company_id = $2::UUID
+2026-05-26 18:03:34,612 INFO sqlalchemy.engine.Engine [generated in 0.00023s] (UUID('1c21c0c0-c9dc-45b2-8b59-b1d52e81721c'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:35,101 INFO sqlalchemy.engine.Engine UPDATE promises_to_pay SET notes=$1::VARCHAR, updated_at=now() WHERE promises_to_pay.id = $2::UUID
+2026-05-26 18:03:35,102 INFO sqlalchemy.engine.Engine [generated in 0.00033s] ('Confirm� par appel', UUID('1c21c0c0-c9dc-45b2-8b59-b1d52e81721c'))
+2026-05-26 18:03:35,582 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:36,568 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:36,568 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:36,568 INFO sqlalchemy.engine.Engine [cached since 78.45s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:37,042 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT notifications.company_id AS company_id, notifications.user_id AS user_id, notifications.title AS title, notifications.message AS message, notifications.notification_type AS notification_type, notifications.is_read AS is_read, notifications.action_url AS action_url, notifications.entity_type AS entity_type, notifications.entity_id AS entity_id, notifications.id AS id, notifications.created_at AS created_at, notifications.updated_at AS updated_at, notifications.deleted_at AS deleted_at 
+FROM notifications 
+WHERE notifications.user_id = $1::UUID AND notifications.company_id = $2::UUID AND notifications.deleted_at IS NULL) AS anon_1
+2026-05-26 18:03:37,042 INFO sqlalchemy.engine.Engine [generated in 0.00024s] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:37,528 INFO sqlalchemy.engine.Engine SELECT notifications.company_id, notifications.user_id, notifications.title, notifications.message, notifications.notification_type, notifications.is_read, notifications.action_url, notifications.entity_type, notifications.entity_id, notifications.id, notifications.created_at, notifications.updated_at, notifications.deleted_at 
+FROM notifications 
+WHERE notifications.user_id = $1::UUID AND notifications.company_id = $2::UUID AND notifications.deleted_at IS NULL ORDER BY notifications.created_at DESC 
+ LIMIT $3::INTEGER OFFSET $4::INTEGER
+2026-05-26 18:03:37,528 INFO sqlalchemy.engine.Engine [generated in 0.00024s] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 20, 0)
+2026-05-26 18:03:38,002 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:39,039 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:39,040 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:39,040 INFO sqlalchemy.engine.Engine [cached since 80.92s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:39,513 INFO sqlalchemy.engine.Engine SELECT notifications.company_id, notifications.user_id, notifications.title, notifications.message, notifications.notification_type, notifications.is_read, notifications.action_url, notifications.entity_type, notifications.entity_id, notifications.id, notifications.created_at, notifications.updated_at, notifications.deleted_at 
+FROM notifications 
+WHERE notifications.id = $1::UUID AND notifications.user_id = $2::UUID
+2026-05-26 18:03:39,513 INFO sqlalchemy.engine.Engine [generated in 0.00038s] (UUID('de0efaa5-120f-4333-bd7a-87b4fbd934e1'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'))
+2026-05-26 18:03:40,065 INFO sqlalchemy.engine.Engine UPDATE notifications SET is_read=$1::BOOLEAN, updated_at=now() WHERE notifications.id = $2::UUID
+2026-05-26 18:03:40,065 INFO sqlalchemy.engine.Engine [generated in 0.00021s] (True, UUID('de0efaa5-120f-4333-bd7a-87b4fbd934e1'))
+2026-05-26 18:03:40,549 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:41,466 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:41,466 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:41,466 INFO sqlalchemy.engine.Engine [cached since 83.34s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:41,932 INFO sqlalchemy.engine.Engine SELECT notifications.company_id, notifications.user_id, notifications.title, notifications.message, notifications.notification_type, notifications.is_read, notifications.action_url, notifications.entity_type, notifications.entity_id, notifications.id, notifications.created_at, notifications.updated_at, notifications.deleted_at 
+FROM notifications 
+WHERE notifications.user_id = $1::UUID AND notifications.company_id = $2::UUID AND notifications.is_read IS false
+2026-05-26 18:03:41,932 INFO sqlalchemy.engine.Engine [generated in 0.00024s] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:42,445 INFO sqlalchemy.engine.Engine UPDATE notifications SET is_read=$1::BOOLEAN, updated_at=now() WHERE notifications.id = $2::UUID
+2026-05-26 18:03:42,446 INFO sqlalchemy.engine.Engine [generated in 0.00078s] [(True, UUID('3cf9e9eb-d5cb-4ce0-ac30-09d68ff90ce4')), (True, UUID('cfafc61f-64af-4da1-b6cb-ba095c9880db')), (True, UUID('f5fc7749-ac7b-45db-8e5b-2839d0a53279'))]
+2026-05-26 18:03:42,960 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:43,926 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:43,927 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:43,927 INFO sqlalchemy.engine.Engine [cached since 85.8s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:44,411 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.id = $1::UUID AND invoices.company_id = $2::UUID
+2026-05-26 18:03:44,411 INFO sqlalchemy.engine.Engine [generated in 0.00022s] (UUID('0c494530-1e1f-4d59-8b8e-1db26108de54'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:44,961 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID
+2026-05-26 18:03:44,961 INFO sqlalchemy.engine.Engine [cached since 39.12s ago] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'),)
+2026-05-26 18:03:45,209 INFO sqlalchemy.engine.Engine SELECT companies.name, companies.email, companies.phone, companies.address, companies.country, companies.city, companies.sector, companies.logo_url, companies.primary_color, companies.secondary_color, companies.signature, companies.smtp_config, companies.branding, companies.is_active, companies.plan, companies.id, companies.created_at, companies.updated_at, companies.deleted_at 
+FROM companies 
+WHERE companies.id = $1::UUID
+2026-05-26 18:03:45,209 INFO sqlalchemy.engine.Engine [generated in 0.00025s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:03:48,126 INFO sqlalchemy.engine.Engine UPDATE invoices SET reminder_level=$1::INTEGER, updated_at=now() WHERE invoices.id = $2::UUID
+2026-05-26 18:03:48,126 INFO sqlalchemy.engine.Engine [generated in 0.00024s] (1, UUID('0c494530-1e1f-4d59-8b8e-1db26108de54'))
+2026-05-26 18:03:48,589 INFO sqlalchemy.engine.Engine INSERT INTO reminders (invoice_id, company_id, template_id, channel, reminder_type, status, level, recipient_email, recipient_phone, subject, message, sent_at, error_message, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::UUID, $4::reminderchannel, $5::remindertype, $6::reminderstatus, $7::INTEGER, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::VARCHAR, $12::TIMESTAMP WITH TIME ZONE, $13::VARCHAR, $14::UUID, $15::TIMESTAMP WITH TIME ZONE) RETURNING reminders.created_at, reminders.updated_at
+2026-05-26 18:03:48,590 INFO sqlalchemy.engine.Engine [generated in 0.00032s] (UUID('0c494530-1e1f-4d59-8b8e-1db26108de54'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), None, 'email', 'rappel_simple', 'failed', 1, 'centrale@pharma.ci', '+22507123456', None, None, datetime.datetime(2026, 5, 26, 17, 3, 48, 125079, tzinfo=datetime.timezone.utc), "(535, '5.7.8 Authentication failed')", UUID('7fe1a6a8-ff5d-49d6-852d-3228caa0830b'), None)
+2026-05-26 18:03:49,801 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:50,802 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:50,802 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:50,802 INFO sqlalchemy.engine.Engine [cached since 92.68s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:51,276 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID AND debtors.company_id = $2::UUID AND debtors.deleted_at IS NULL
+2026-05-26 18:03:51,276 INFO sqlalchemy.engine.Engine [cached since 67.65s ago] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:51,561 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.debtor_id = $1::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:03:51,561 INFO sqlalchemy.engine.Engine [generated in 0.00024s] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'),)
+2026-05-26 18:03:52,070 INFO sqlalchemy.engine.Engine SELECT promises_to_pay.invoice_id, promises_to_pay.company_id, promises_to_pay.debtor_id, promises_to_pay.created_by, promises_to_pay.promised_date, promises_to_pay.promised_amount, promises_to_pay.status, promises_to_pay.notes, promises_to_pay.id, promises_to_pay.created_at, promises_to_pay.updated_at, promises_to_pay.deleted_at 
+FROM promises_to_pay 
+WHERE promises_to_pay.debtor_id = $1::UUID
+2026-05-26 18:03:52,070 INFO sqlalchemy.engine.Engine [generated in 0.00021s] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'),)
+2026-05-26 18:03:52,543 INFO sqlalchemy.engine.Engine SELECT reminders.invoice_id, reminders.company_id, reminders.template_id, reminders.channel, reminders.reminder_type, reminders.status, reminders.level, reminders.recipient_email, reminders.recipient_phone, reminders.subject, reminders.message, reminders.sent_at, reminders.error_message, reminders.id, reminders.created_at, reminders.updated_at, reminders.deleted_at 
+FROM reminders 
+WHERE reminders.invoice_id IN ($1::UUID, $2::UUID)
+2026-05-26 18:03:52,543 INFO sqlalchemy.engine.Engine [generated in 0.00029s] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('0c494530-1e1f-4d59-8b8e-1db26108de54'))
+2026-05-26 18:03:53,012 INFO sqlalchemy.engine.Engine UPDATE debtors SET risk_score=$1::FLOAT, updated_at=now() WHERE debtors.id = $2::UUID
+2026-05-26 18:03:53,013 INFO sqlalchemy.engine.Engine [generated in 0.00037s] (2.0, UUID('753c98f8-ef93-4996-9832-d72db4d1c813'))
+2026-05-26 18:03:53,481 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:54,527 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:54,527 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:54,527 INFO sqlalchemy.engine.Engine [cached since 96.4s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:55,019 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.company_id = $1::UUID AND debtors.deleted_at IS NULL
+2026-05-26 18:03:55,019 INFO sqlalchemy.engine.Engine [generated in 0.00024s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:03:55,525 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.id = $1::UUID AND debtors.company_id = $2::UUID AND debtors.deleted_at IS NULL
+2026-05-26 18:03:55,525 INFO sqlalchemy.engine.Engine [cached since 71.9s ago] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'), UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'))
+2026-05-26 18:03:55,773 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.debtor_id = $1::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:03:55,773 INFO sqlalchemy.engine.Engine [cached since 4.212s ago] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'),)
+2026-05-26 18:03:56,014 INFO sqlalchemy.engine.Engine SELECT promises_to_pay.invoice_id, promises_to_pay.company_id, promises_to_pay.debtor_id, promises_to_pay.created_by, promises_to_pay.promised_date, promises_to_pay.promised_amount, promises_to_pay.status, promises_to_pay.notes, promises_to_pay.id, promises_to_pay.created_at, promises_to_pay.updated_at, promises_to_pay.deleted_at 
+FROM promises_to_pay 
+WHERE promises_to_pay.debtor_id = $1::UUID
+2026-05-26 18:03:56,014 INFO sqlalchemy.engine.Engine [cached since 3.944s ago] (UUID('753c98f8-ef93-4996-9832-d72db4d1c813'),)
+2026-05-26 18:03:56,266 INFO sqlalchemy.engine.Engine SELECT reminders.invoice_id, reminders.company_id, reminders.template_id, reminders.channel, reminders.reminder_type, reminders.status, reminders.level, reminders.recipient_email, reminders.recipient_phone, reminders.subject, reminders.message, reminders.sent_at, reminders.error_message, reminders.id, reminders.created_at, reminders.updated_at, reminders.deleted_at 
+FROM reminders 
+WHERE reminders.invoice_id IN ($1::UUID, $2::UUID)
+2026-05-26 18:03:56,266 INFO sqlalchemy.engine.Engine [cached since 3.723s ago] (UUID('ba8cb397-8ae0-4314-b332-ad348ef27cb1'), UUID('0c494530-1e1f-4d59-8b8e-1db26108de54'))
+2026-05-26 18:03:56,498 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:57,480 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:57,480 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:57,481 INFO sqlalchemy.engine.Engine [cached since 99.36s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:57,970 INFO sqlalchemy.engine.Engine SELECT debtors.company_id, debtors.created_by, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id, debtors.created_at, debtors.updated_at, debtors.deleted_at 
+FROM debtors 
+WHERE debtors.company_id = $1::UUID AND debtors.deleted_at IS NULL ORDER BY debtors.risk_score DESC 
+ LIMIT $2::INTEGER
+2026-05-26 18:03:57,971 INFO sqlalchemy.engine.Engine [generated in 0.00021s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 5)
+2026-05-26 18:03:58,492 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:03:59,464 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:03:59,465 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:03:59,465 INFO sqlalchemy.engine.Engine [cached since 101.3s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:03:59,969 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at 
+FROM invoices 
+WHERE invoices.company_id = $1::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:03:59,969 INFO sqlalchemy.engine.Engine [generated in 0.00029s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:04:00,568 INFO sqlalchemy.engine.Engine SELECT count(debtors.id) AS count_1 
+FROM debtors 
+WHERE debtors.company_id = $1::UUID AND debtors.deleted_at IS NULL
+2026-05-26 18:04:00,568 INFO sqlalchemy.engine.Engine [generated in 0.00019s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:04:01,080 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:04:02,079 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:02,079 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:02,080 INFO sqlalchemy.engine.Engine [cached since 104s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:02,571 INFO sqlalchemy.engine.Engine SELECT date_trunc($1::VARCHAR, invoices.created_at) AS month, sum(invoices.amount) AS total, sum(invoices.amount_paid) AS paid 
+FROM invoices 
+WHERE invoices.company_id = $2::UUID AND invoices.deleted_at IS NULL GROUP BY 1 ORDER BY 1 DESC 
+ LIMIT $3::INTEGER
+2026-05-26 18:04:02,571 INFO sqlalchemy.engine.Engine [generated in 0.00024s] ('month', UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 12)
+2026-05-26 18:04:03,127 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:04:04,160 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:04,161 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:04,162 INFO sqlalchemy.engine.Engine [cached since 106s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:04,615 INFO sqlalchemy.engine.Engine SELECT invoices.created_by, count(invoices.id) AS total_invoices, sum(invoices.amount_paid) AS total_recovered 
+FROM invoices 
+WHERE invoices.company_id = $1::UUID AND invoices.deleted_at IS NULL GROUP BY invoices.created_by
+2026-05-26 18:04:04,615 INFO sqlalchemy.engine.Engine [generated in 0.00022s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:04:05,104 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:04:06,050 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:06,050 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:06,050 INFO sqlalchemy.engine.Engine [cached since 107.9s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:06,509 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at, debtors.company_id AS company_id_1, debtors.created_by AS created_by_1, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes AS notes_1, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id AS id_1, debtors.created_at AS created_at_1, debtors.updated_at AS updated_at_1, debtors.deleted_at AS deleted_at_1 
+FROM invoices JOIN debtors ON invoices.debtor_id = debtors.id 
+WHERE invoices.company_id = $1::UUID AND invoices.deleted_at IS NULL ORDER BY invoices.created_at DESC
+2026-05-26 18:04:06,510 INFO sqlalchemy.engine.Engine [generated in 0.00023s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:04:07,008 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:04:08,000 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:08,000 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:08,000 INFO sqlalchemy.engine.Engine [cached since 109.9s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:08,503 INFO sqlalchemy.engine.Engine SELECT invoices.company_id, invoices.debtor_id, invoices.created_by, invoices.invoice_number, invoices.description, invoices.currency, invoices.amount, invoices.amount_paid, invoices.penalty_rate, invoices.penalty_amount, invoices.due_date, invoices.paid_date, invoices.status, invoices.pdf_url, invoices.reminder_level, invoices.notes, invoices.id, invoices.created_at, invoices.updated_at, invoices.deleted_at, debtors.company_id AS company_id_1, debtors.created_by AS created_by_1, debtors.name, debtors.phone, debtors.email, debtors.address, debtors.company_name, debtors.city, debtors.country, debtors.category, debtors.risk_level, debtors.risk_score, debtors.identity_doc_url, debtors.photo_url, debtors.tags, debtors.notes AS notes_1, debtors.geo_location, debtors.total_due, debtors.total_paid, debtors.id AS id_1, debtors.created_at AS created_at_1, debtors.updated_at AS updated_at_1, debtors.deleted_at AS deleted_at_1 
+FROM invoices JOIN debtors ON invoices.debtor_id = debtors.id 
+WHERE invoices.company_id = $1::UUID AND invoices.deleted_at IS NULL ORDER BY invoices.created_at DESC
+2026-05-26 18:04:08,503 INFO sqlalchemy.engine.Engine [cached since 1.994s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:04:09,239 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:04:10,678 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:10,678 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:10,679 INFO sqlalchemy.engine.Engine [cached since 112.6s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:11,249 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT audit_logs.company_id AS company_id, audit_logs.user_id AS user_id, audit_logs.action AS action, audit_logs.entity_type AS entity_type, audit_logs.entity_id AS entity_id, audit_logs.old_values AS old_values, audit_logs.new_values AS new_values, audit_logs.ip_address AS ip_address, audit_logs.user_agent AS user_agent, audit_logs.description AS description, audit_logs.id AS id, audit_logs.created_at AS created_at, audit_logs.updated_at AS updated_at, audit_logs.deleted_at AS deleted_at 
+FROM audit_logs 
+WHERE audit_logs.deleted_at IS NULL AND audit_logs.company_id = $1::UUID) AS anon_1
+2026-05-26 18:04:11,249 INFO sqlalchemy.engine.Engine [generated in 0.00026s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:04:11,742 INFO sqlalchemy.engine.Engine SELECT audit_logs.company_id, audit_logs.user_id, audit_logs.action, audit_logs.entity_type, audit_logs.entity_id, audit_logs.old_values, audit_logs.new_values, audit_logs.ip_address, audit_logs.user_agent, audit_logs.description, audit_logs.id, audit_logs.created_at, audit_logs.updated_at, audit_logs.deleted_at 
+FROM audit_logs 
+WHERE audit_logs.deleted_at IS NULL AND audit_logs.company_id = $1::UUID ORDER BY audit_logs.created_at DESC 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER
+2026-05-26 18:04:11,742 INFO sqlalchemy.engine.Engine [generated in 0.00024s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), 20, 0)
+2026-05-26 18:04:12,300 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:04:13,280 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:13,280 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:13,280 INFO sqlalchemy.engine.Engine [cached since 115.2s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:13,780 INFO sqlalchemy.engine.Engine INSERT INTO audit_logs (company_id, user_id, action, entity_type, entity_id, old_values, new_values, ip_address, user_agent, description, id, deleted_at) VALUES ($1::UUID, $2::UUID, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::JSON, $7::JSON, $8::VARCHAR, $9::VARCHAR, $10::VARCHAR, $11::UUID, $12::TIMESTAMP WITH TIME ZONE) RETURNING audit_logs.created_at, audit_logs.updated_at
+2026-05-26 18:04:13,781 INFO sqlalchemy.engine.Engine [generated in 0.00072s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'), UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'), 'test_action', 'invoice', 'ba8cb397-8ae0-4314-b332-ad348ef27cb1', 'null', 'null', None, None, 'Test log manuel', UUID('7c854c67-9d9e-4e5f-9b28-b24e573203cc'), None)
+2026-05-26 18:04:14,700 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:04:17,161 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:17,162 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:17,162 INFO sqlalchemy.engine.Engine [cached since 119s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:18,082 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.company_id = $1::UUID AND users.deleted_at IS NULL AND users.is_active IS true
+2026-05-26 18:04:18,082 INFO sqlalchemy.engine.Engine [generated in 0.00021s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:04:18,617 INFO sqlalchemy.engine.Engine SELECT count(invoices.id) AS count_1 
+FROM invoices 
+WHERE invoices.created_by = $1::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:04:18,617 INFO sqlalchemy.engine.Engine [generated in 0.00021s] (UUID('7c06fee8-4d36-4fab-b864-842b848acec5'),)
+2026-05-26 18:04:19,125 INFO sqlalchemy.engine.Engine SELECT sum(invoices.amount_paid) AS sum_1 
+FROM invoices 
+WHERE invoices.created_by = $1::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:04:19,125 INFO sqlalchemy.engine.Engine [generated in 0.00029s] (UUID('7c06fee8-4d36-4fab-b864-842b848acec5'),)
+2026-05-26 18:04:19,613 INFO sqlalchemy.engine.Engine SELECT count(reminders.id) AS count_1 
+FROM reminders 
+WHERE reminders.company_id = $1::UUID
+2026-05-26 18:04:19,614 INFO sqlalchemy.engine.Engine [generated in 0.00031s] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:04:20,089 INFO sqlalchemy.engine.Engine SELECT count(invoices.id) AS count_1 
+FROM invoices 
+WHERE invoices.created_by = $1::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:04:20,089 INFO sqlalchemy.engine.Engine [cached since 1.472s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:20,362 INFO sqlalchemy.engine.Engine SELECT sum(invoices.amount_paid) AS sum_1 
+FROM invoices 
+WHERE invoices.created_by = $1::UUID AND invoices.deleted_at IS NULL
+2026-05-26 18:04:20,363 INFO sqlalchemy.engine.Engine [cached since 1.238s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:20,640 INFO sqlalchemy.engine.Engine SELECT count(reminders.id) AS count_1 
+FROM reminders 
+WHERE reminders.company_id = $1::UUID
+2026-05-26 18:04:20,640 INFO sqlalchemy.engine.Engine [cached since 1.026s ago] (UUID('ba67517c-2db5-4d7f-b2d4-5f12bb7907bb'),)
+2026-05-26 18:04:20,866 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-26 18:04:21,841 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:21,842 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:21,842 INFO sqlalchemy.engine.Engine [cached since 123.7s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:22,327 INFO sqlalchemy.engine.Engine ROLLBACK
+  [FAIL] GET /superadmin/stats � 403: {"detail":"Acc�s r�serv� aux super administrateurs de la plateforme"}
+2026-05-26 18:04:23,311 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:23,312 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:23,312 INFO sqlalchemy.engine.Engine [cached since 125.2s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:23,784 INFO sqlalchemy.engine.Engine ROLLBACK
+  [FAIL] GET /superadmin/companies � 403: {"detail":"Acc�s r�serv� aux super administrateurs de la plateforme"}
+2026-05-26 18:04:24,762 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:24,762 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:24,762 INFO sqlalchemy.engine.Engine [cached since 126.6s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:25,218 INFO sqlalchemy.engine.Engine ROLLBACK
+  [FAIL] GET /superadmin/companies/{id} � 403: {"detail":"Acc�s r�serv� aux super administrateurs de la plateforme"}
+2026-05-26 18:04:26,217 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:26,218 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:26,218 INFO sqlalchemy.engine.Engine [cached since 128.1s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:26,735 INFO sqlalchemy.engine.Engine ROLLBACK
+  [FAIL] PUT /superadmin/companies/{id}/plan � 403: {"detail":"Acc�s r�serv� aux super administrateurs de la plateforme"}
+2026-05-26 18:04:27,671 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:27,671 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:27,671 INFO sqlalchemy.engine.Engine [cached since 129.5s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:28,164 INFO sqlalchemy.engine.Engine ROLLBACK
+  [FAIL] GET /superadmin/audit-logs � 403: {"detail":"Acc�s r�serv� aux super administrateurs de la plateforme"}
+2026-05-26 18:04:29,159 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-26 18:04:29,159 INFO sqlalchemy.engine.Engine SELECT users.company_id, users.email, users.password_hash, users.first_name, users.last_name, users.phone, users.role, users.is_active, users.is_verified, users.last_login, users.avatar_url, users.fcm_token, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.id = $1::UUID AND users.deleted_at IS NULL
+2026-05-26 18:04:29,160 INFO sqlalchemy.engine.Engine [cached since 131s ago] (UUID('c24c5220-db1e-41e1-b168-fc7419c9c3b6'),)
+2026-05-26 18:04:29,648 INFO sqlalchemy.engine.Engine COMMIT
+
+=======================================================
+  RESULTATS : 49/54 OK � 5 FAIL
+=======================================================
+
+Echecs :
+  FAIL  [403]  GET /superadmin/stats
+  FAIL  [403]  GET /superadmin/companies
+  FAIL  [403]  GET /superadmin/companies/{id}
+  FAIL  [403]  PUT /superadmin/companies/{id}/plan
+  FAIL  [403]  GET /superadmin/audit-logs
