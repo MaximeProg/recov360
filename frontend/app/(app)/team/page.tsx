@@ -84,39 +84,53 @@ export default function TeamPage() {
         }
       />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '0.875rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(300px, 100%), 1fr))', gap: '0.875rem' }}>
         {loading ? (
           [...Array(4)].map((_, i) => <div key={i} className="skeleton" style={{ height: 120, borderRadius: 'var(--radius-lg)' }} />)
         ) : users.map(user => (
-          <div key={user.id} className="card" style={{ padding: '1.25rem', display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-            <div style={{ width: 48, height: 48, borderRadius: '50%', background: ROLE_COLORS[user.role] + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.875rem', fontWeight: 700, color: ROLE_COLORS[user.role], flexShrink: 0 }}>
-              {getInitials(`${user.first_name} ${user.last_name}`)}
-            </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem', flexWrap: 'wrap' }}>
-                <span style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: '0.9375rem' }}>
+          <div key={user.id} className="card" style={{ padding: '1rem 1.25rem' }}>
+            {/* Ligne du haut : avatar + nom + badge + statut + actions */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.625rem' }}>
+              {/* Avatar */}
+              <div style={{ width: 42, height: 42, borderRadius: '50%', background: ROLE_COLORS[user.role] + '20', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.8125rem', fontWeight: 700, color: ROLE_COLORS[user.role], flexShrink: 0 }}>
+                {getInitials(`${user.first_name} ${user.last_name}`)}
+              </div>
+
+              {/* Nom + badge */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontWeight: 600, color: 'var(--foreground)', fontSize: '0.9375rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                   {user.first_name} {user.last_name}
-                </span>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', fontWeight: 500, padding: '0.15rem 0.5rem', borderRadius: '999px', background: ROLE_COLORS[user.role] + '18', color: ROLE_COLORS[user.role] }}>
-                  <Shield size={10} /> {roleLabel(user.role)}
+                </div>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.2rem', fontSize: '0.7rem', fontWeight: 500, padding: '0.1rem 0.45rem', borderRadius: '999px', background: ROLE_COLORS[user.role] + '18', color: ROLE_COLORS[user.role], marginTop: '0.15rem' }}>
+                  <Shield size={9} /> {roleLabel(user.role)}
                 </span>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem' }}>
-                <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.8125rem', color: 'var(--foreground-muted)' }}>
-                  <Mail size={12} /> {user.email}
-                </span>
-                {user.phone && (
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.8125rem', color: 'var(--foreground-muted)' }}>
-                    <Phone size={12} /> {user.phone}
-                  </span>
-                )}
+
+              {/* Statut + suppression */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: user.is_active ? 'var(--status-paid)' : 'var(--foreground-subtle)' }} title={user.is_active ? 'Actif' : 'Inactif'} />
+                <button className="btn-ghost" style={{ color: 'var(--status-late)', padding: '0.3rem 0.4rem' }} onClick={() => deleteUser(user.id, `${user.first_name} ${user.last_name}`)}>
+                  <Trash2 size={14} />
+                </button>
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.375rem', flexShrink: 0 }}>
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: user.is_active ? 'var(--status-paid)' : 'var(--foreground-subtle)' }} title={user.is_active ? 'Actif' : 'Inactif'} />
-              <button className="btn-ghost" style={{ color: 'var(--status-late)', padding: '0.3rem 0.4rem' }} onClick={() => deleteUser(user.id, `${user.first_name} ${user.last_name}`)}>
-                <Trash2 size={14} />
-              </button>
+
+            {/* Ligne du bas : email + téléphone */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.2rem', paddingLeft: '0.125rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', minWidth: 0 }}>
+                <Mail size={12} style={{ flexShrink: 0, color: 'var(--foreground-muted)' }} />
+                <span style={{ fontSize: '0.8125rem', color: 'var(--foreground-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {user.email}
+                </span>
+              </div>
+              {user.phone && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <Phone size={12} style={{ flexShrink: 0, color: 'var(--foreground-muted)' }} />
+                  <span style={{ fontSize: '0.8125rem', color: 'var(--foreground-muted)' }}>
+                    {user.phone}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         ))}

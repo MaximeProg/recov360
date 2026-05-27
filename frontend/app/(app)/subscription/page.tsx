@@ -94,7 +94,7 @@ export default function SubscriptionPage() {
 
   if (loading) {
     return (
-      <div style={{ padding: '2rem', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--foreground-muted)' }}>
+      <div style={{ padding: 'clamp(0.75rem, 3vw, 2rem)', display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--foreground-muted)' }}>
         <RefreshCw size={18} className="spin" />
         Chargement de l'abonnement…
       </div>
@@ -103,7 +103,7 @@ export default function SubscriptionPage() {
 
   if (!sub) {
     return (
-      <div style={{ padding: '2rem' }}>
+      <div style={{ padding: 'clamp(0.75rem, 3vw, 2rem)' }}>
         <PageHeader title="Abonnement" subtitle="Gérez votre abonnement Recov360" />
         <div style={{
           marginTop: '2rem', padding: '3rem', textAlign: 'center',
@@ -130,7 +130,7 @@ export default function SubscriptionPage() {
   }
 
   return (
-    <div style={{ padding: '2rem', maxWidth: 900 }}>
+    <div style={{ padding: 'clamp(0.75rem, 3vw, 2rem)', maxWidth: 900 }}>
       <PageHeader title="Abonnement" subtitle="Détails de votre abonnement en cours" />
 
       {/* Carte principale */}
@@ -187,7 +187,7 @@ export default function SubscriptionPage() {
 
         {/* Grille d'infos */}
         <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
           gap: 0, borderBottom: '1px solid var(--border)',
         }}>
           {[
@@ -218,8 +218,9 @@ export default function SubscriptionPage() {
             const Icon = info.icon
             return (
               <div key={i} style={{
-                padding: '1.125rem 1.375rem',
+                padding: '1rem',
                 borderRight: i < 3 ? '1px solid var(--border)' : 'none',
+                borderBottom: '1px solid var(--border)',
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', marginBottom: '0.375rem' }}>
                   <Icon size={13} style={{ color: 'var(--foreground-muted)' }} />

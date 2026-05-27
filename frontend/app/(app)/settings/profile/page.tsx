@@ -51,11 +51,11 @@ export default function ProfilePage() {
           }}>
             {getInitials(`${user.first_name} ${user.last_name}`)}
           </div>
-          <div>
-            <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--foreground)' }}>
+          <div style={{ minWidth: 0, flex: 1 }}>
+            <div style={{ fontSize: '1.125rem', fontWeight: 700, color: 'var(--foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {user.first_name} {user.last_name}
             </div>
-            <div style={{ fontSize: '0.875rem', color: 'var(--foreground-muted)', marginTop: '0.125rem' }}>
+            <div style={{ fontSize: '0.875rem', color: 'var(--foreground-muted)', marginTop: '0.125rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {user.email}
             </div>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', marginTop: '0.375rem', fontSize: '0.75rem', fontWeight: 600, padding: '0.2rem 0.625rem', borderRadius: '999px', background: 'var(--primary-muted)', color: 'var(--primary)' }}>
@@ -70,9 +70,9 @@ export default function ProfilePage() {
             { label: 'Nom', value: user.last_name },
             { label: 'Rôle', value: roleLabel(user.role) },
           ].map(r => (
-            <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0', borderBottom: '1px solid var(--border-muted)', fontSize: '0.875rem' }}>
-              <span style={{ color: 'var(--foreground-muted)' }}>{r.label}</span>
-              <span style={{ fontWeight: 500, color: 'var(--foreground)' }}>{r.value}</span>
+            <div key={r.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem', padding: '0.5rem 0', borderBottom: '1px solid var(--border-muted)', fontSize: '0.875rem' }}>
+              <span style={{ color: 'var(--foreground-muted)', flexShrink: 0 }}>{r.label}</span>
+              <span style={{ fontWeight: 500, color: 'var(--foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', textAlign: 'right' }}>{r.value}</span>
             </div>
           ))}
         </div>
