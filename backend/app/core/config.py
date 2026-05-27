@@ -46,10 +46,27 @@ class Settings(BaseSettings):
     FEDAPAY_ENV: str = "sandbox"   # "sandbox" ou "live"
     FEDAPAY_WEBHOOK_SECRET: str = "" # pour vérifier les webhooks
     FRONTEND_URL: str = "http://localhost:3000"
+    # Origines CORS supplémentaires (séparées par des virgules)
+    # Ex: https://recov360.vercel.app,https://recov360.com
+    ALLOWED_ORIGINS: str = ""
 
     @property
     def superadmin_email_list(self) -> list[str]:
         return [e.strip().lower() for e in self.SUPERADMIN_EMAILS.split(",") if e.strip()]
+
+    @property
+    def allowed_origins_list(self) -> list[str]:
+        """Construit la liste complète des origines CORS autorisées."""
+        origins = set()
+        # Toujours inclure FRONTEND_URL
+        if self.FRONTEND_URL:
+            origins.add(self.FRONTEND_URL.rstrip("/"))
+        # Ajouter les origines supplémentaires
+        for o in self.ALLOWED_ORIGINS.split(","):
+            o = o.strip().rstrip("/")
+            if o:
+                origins.add(o)
+        return list(origins)
 
     @property
     def is_production(self) -> bool:
