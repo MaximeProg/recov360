@@ -1,15 +1,14 @@
 'use client'
-export const dynamic = 'force-dynamic'
-
-import { useEffect, useRef, useState } from 'react'
+import { Suspense, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { CheckCircle, XCircle, RefreshCw, Shield, Clock } from 'lucide-react'
 import { subscriptionApi } from '@/lib/api'
 
-const MAX_ATTEMPTS = 8  // max 8 tentatives × 3s = 24s
+const MAX_ATTEMPTS = 8
 const RETRY_DELAY = 3000
 
-export default function CallbackPage() {
+/* ── Composant interne (utilise useSearchParams) ── */
+function CallbackContent() {
   const router = useRouter()
   const params = useSearchParams()
   const [status, setStatus] = useState<'checking' | 'success' | 'failed' | 'pending'>('checking')
@@ -18,25 +17,19 @@ export default function CallbackPage() {
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    // Récupérer le transaction_id sauvegardé avant la redirection vers FedaPay
     const transactionId = sessionStorage.getItem('pending_transaction_id')
-
-    // FedaPay peut aussi passer un statut dans les query params
     const fedapayStatus = params.get('status') ?? params.get('fedapay_status')
 
-    // Si FedaPay indique clairement un refus, afficher directement
     if (fedapayStatus === 'declined' || fedapayStatus === 'cancelled') {
       setStatus('failed')
       return
     }
 
     if (!transactionId) {
-      // Pas de transaction_id → fallback: vérifier l'abonnement directement
       verifyBySubscriptionCheck()
       return
     }
 
-    // Vérification directe via FedaPay (polling)
     verifyByTransactionId(transactionId)
 
     return () => {
@@ -45,16 +38,12 @@ export default function CallbackPage() {
   }, [])
 
   async function verifyByTransactionId(transactionId: string) {
-    if (attemptRef.current >= MAX_ATTEMPTS) {
-      setStatus('pending')
-      return
-    }
+    if (attemptRef.current >= MAX_ATTEMPTS) { setStatus('pending'); return }
     attemptRef.current += 1
     setAttempts(attemptRef.current)
 
     try {
       const result = await subscriptionApi.verifyPayment(transactionId)
-
       if (result.subscription_active || result.fedapay_status === 'approved') {
         sessionStorage.removeItem('pending_transaction_id')
         setStatus('success')
@@ -63,20 +52,15 @@ export default function CallbackPage() {
         sessionStorage.removeItem('pending_transaction_id')
         setStatus('failed')
       } else {
-        // Encore en attente → réessayer
         timerRef.current = setTimeout(() => verifyByTransactionId(transactionId), RETRY_DELAY)
       }
     } catch {
-      // Erreur réseau → réessayer
       timerRef.current = setTimeout(() => verifyByTransactionId(transactionId), RETRY_DELAY)
     }
   }
 
   async function verifyBySubscriptionCheck() {
-    if (attemptRef.current >= MAX_ATTEMPTS) {
-      setStatus('pending')
-      return
-    }
+    if (attemptRef.current >= MAX_ATTEMPTS) { setStatus('pending'); return }
     attemptRef.current += 1
     setAttempts(attemptRef.current)
 
@@ -101,7 +85,6 @@ export default function CallbackPage() {
           <Shield size={28} color="white" />
         </div>
 
-        {/* Checking */}
         {status === 'checking' && (
           <>
             <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#2563EB12', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
@@ -121,7 +104,6 @@ export default function CallbackPage() {
           </>
         )}
 
-        {/* Success */}
         {status === 'success' && (
           <>
             <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#05966912', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
@@ -136,7 +118,6 @@ export default function CallbackPage() {
           </>
         )}
 
-        {/* Failed */}
         {status === 'failed' && (
           <>
             <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#DC262612', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
@@ -157,7 +138,6 @@ export default function CallbackPage() {
           </>
         )}
 
-        {/* Pending (timeout) */}
         {status === 'pending' && (
           <>
             <div style={{ width: 72, height: 72, borderRadius: '50%', background: '#D9770612', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}>
@@ -172,7 +152,12 @@ export default function CallbackPage() {
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
               <button
-                onClick={() => { setStatus('checking'); attemptRef.current = 0; const id = sessionStorage.getItem('pending_transaction_id'); if (id) verifyByTransactionId(id); else verifyBySubscriptionCheck() }}
+                onClick={() => {
+                  setStatus('checking')
+                  attemptRef.current = 0
+                  const id = sessionStorage.getItem('pending_transaction_id')
+                  if (id) verifyByTransactionId(id); else verifyBySubscriptionCheck()
+                }}
                 style={{ padding: '0.75rem 1.25rem', background: '#2563EB', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 600, fontSize: '0.875rem' }}
               >
                 Vérifier à nouveau
@@ -187,12 +172,35 @@ export default function CallbackPage() {
           </>
         )}
 
-        {/* Security note */}
         <div style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', color: 'var(--foreground-subtle)', fontSize: '0.8125rem' }}>
           <Shield size={13} />
           Vérification sécurisée via FedaPay — aucune donnée bancaire stockée
         </div>
       </div>
     </div>
+  )
+}
+
+/* ── Fallback affiché pendant le chargement ── */
+function CallbackFallback() {
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--background)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ width: 56, height: 56, background: 'linear-gradient(135deg, #2563EB, #1D4ED8)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
+          <Shield size={28} color="white" />
+        </div>
+        <RefreshCw size={28} style={{ color: '#2563EB', animation: 'spin 1s linear infinite' }} />
+        <p style={{ marginTop: '1rem', color: 'var(--foreground-muted)', fontSize: '0.9375rem' }}>Chargement…</p>
+      </div>
+    </div>
+  )
+}
+
+/* ── Export page — Suspense obligatoire pour useSearchParams ── */
+export default function CallbackPage() {
+  return (
+    <Suspense fallback={<CallbackFallback />}>
+      <CallbackContent />
+    </Suspense>
   )
 }

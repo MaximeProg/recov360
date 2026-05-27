@@ -1,10 +1,8 @@
 'use client'
-export const dynamic = 'force-dynamic'
-
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { Plus, FileText, Eye, Filter } from 'lucide-react'
+import { Plus, FileText, Eye } from 'lucide-react'
 import PageHeader from '@/components/ui/PageHeader'
 import SearchInput from '@/components/ui/SearchInput'
 import Pagination from '@/components/ui/Pagination'
@@ -23,7 +21,8 @@ const STATUSES: { value: InvoiceStatus | ''; label: string }[] = [
   { value: 'litige', label: 'Litige' },
 ]
 
-export default function InvoicesPage() {
+/* ── Composant interne (utilise useSearchParams) ── */
+function InvoicesContent() {
   const { user } = useAuth()
   const perms = getPermissions(user?.role)
   const searchParams = useSearchParams()
@@ -171,5 +170,22 @@ export default function InvoicesPage() {
         <Pagination page={page} totalPages={Math.ceil(total / PER_PAGE)} total={total} perPage={PER_PAGE} onChange={setPage} />
       </div>
     </div>
+  )
+}
+
+/* ── Export page — Suspense obligatoire pour useSearchParams ── */
+export default function InvoicesPage() {
+  return (
+    <Suspense fallback={
+      <div className="animate-fadeIn">
+        <div style={{ height: 60, background: 'var(--surface)', borderRadius: 12, marginBottom: '1rem' }} className="skeleton" />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px,1fr))', gap: '0.75rem', marginBottom: '1rem' }}>
+          {[...Array(3)].map((_, i) => <div key={i} className="skeleton" style={{ height: 70, borderRadius: 12 }} />)}
+        </div>
+        <div className="card skeleton" style={{ height: 300 }} />
+      </div>
+    }>
+      <InvoicesContent />
+    </Suspense>
   )
 }

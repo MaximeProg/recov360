@@ -1,7 +1,5 @@
 'use client'
-export const dynamic = 'force-dynamic'
-
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Save, ArrowLeft } from 'lucide-react'
 import PageHeader from '@/components/ui/PageHeader'
@@ -9,7 +7,8 @@ import { invoicesApi, debtorsApi } from '@/lib/api'
 import { useToast } from '@/contexts/toast'
 import type { Debtor } from '@/types'
 
-export default function NewInvoicePage() {
+/* ── Composant interne (utilise useSearchParams) ── */
+function NewInvoiceContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const toast = useToast()
@@ -154,5 +153,19 @@ export default function NewInvoicePage() {
         </form>
       </div>
     </div>
+  )
+}
+
+/* ── Export page — Suspense obligatoire pour useSearchParams ── */
+export default function NewInvoicePage() {
+  return (
+    <Suspense fallback={
+      <div className="animate-fadeIn" style={{ maxWidth: 640, margin: '0 auto' }}>
+        <div className="skeleton" style={{ height: 60, borderRadius: 12, marginBottom: '1.5rem' }} />
+        <div className="card skeleton" style={{ height: 400 }} />
+      </div>
+    }>
+      <NewInvoiceContent />
+    </Suspense>
   )
 }
