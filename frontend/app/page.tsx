@@ -386,9 +386,6 @@ export default function LandingPage() {
       <section id="features" style={{ padding: '6rem 1.5rem', background: 'white' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ maxWidth: 560, marginBottom: '3.5rem' }}>
-            <div style={{ display: 'inline-block', padding: '0.25rem 0.875rem', background: '#EFF6FF', color: '#1D4ED8', borderRadius: '6px', fontSize: '0.8125rem', fontWeight: 600, marginBottom: '1rem', letterSpacing: '0.03em', textTransform: 'uppercase' }}>
-              Fonctionnalités
-            </div>
             <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.15, margin: '0 0 1rem', letterSpacing: '-0.02em' }}>
               Une plateforme complète, pas une simple liste de contacts
             </h2>
@@ -415,9 +412,6 @@ export default function LandingPage() {
       <section id="how" style={{ padding: '6rem 1.5rem', background: '#F8FAFC' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', maxWidth: 540, margin: '0 auto 4rem' }}>
-            <div style={{ display: 'inline-block', padding: '0.25rem 0.875rem', background: '#F0FDF4', color: '#15803D', borderRadius: '6px', fontSize: '0.8125rem', fontWeight: 600, marginBottom: '1rem', letterSpacing: '0.03em', textTransform: 'uppercase' }}>
-              Mise en route
-            </div>
             <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.15, margin: '0 0 1rem', letterSpacing: '-0.02em' }}>
               Opérationnel en moins d'une heure
             </h2>
@@ -477,9 +471,6 @@ export default function LandingPage() {
       <section id="pricing" style={{ padding: '6rem 1.5rem', background: '#F8FAFC' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', maxWidth: 540, margin: '0 auto 2.5rem' }}>
-            <div style={{ display: 'inline-block', padding: '0.25rem 0.875rem', background: '#F5F3FF', color: '#6D28D9', borderRadius: '6px', fontSize: '0.8125rem', fontWeight: 600, marginBottom: '1rem', letterSpacing: '0.03em', textTransform: 'uppercase' }}>
-              Tarification
-            </div>
             <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 800, lineHeight: 1.15, margin: '0 0 1rem', letterSpacing: '-0.02em' }}>
               Des tarifs clairs, sans surprise
             </h2>

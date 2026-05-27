@@ -728,6 +728,31 @@ tbody tr:hover { background: var(--border-muted); }
 }
 
 /* ──────────────────────────────────────────────────────────────────
+ * SA KPI GRID — grille des 6 cartes statistiques du dashboard SA
+ * Mobile   : 2 colonnes (3 lignes de 2)
+ * Tablette : 3 colonnes (2 lignes de 3)
+ * Desktop  : auto-fill minmax(200px,1fr) = 6 en une ligne
+ * ────────────────────────────────────────────────────────────── */
+.sa-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);   /* mobile : 2 par ligne */
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+@media (min-width: 560px) {
+  .sa-kpi-grid {
+    grid-template-columns: repeat(3, 1fr); /* tablette : 3 par ligne */
+    gap: 0.875rem;
+  }
+}
+@media (min-width: 900px) {
+  .sa-kpi-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* desktop */
+    gap: 1rem;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────────
  * SA SIDEBAR
  * ────────────────────────────────────────────────────────────── */
 .sa-sidebar {
