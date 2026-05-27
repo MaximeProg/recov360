@@ -746,8 +746,8 @@ tbody tr:hover { background: var(--border-muted); }
  *   → évite le bug flexbox : flex:1 + marginLeft inline = overflow
  * ────────────────────────────────────────────────────────────── */
 .sa-main {
+  flex: 1;             /* Remplit tout l'espace restant dans le flex container */
   margin-left: 256px;  /* Offset pour la sidebar fixe (desktop) */
-  /* Empêche le contenu de dépasser la largeur de l'écran */
   overflow-x: hidden;
   min-width: 0;
   box-sizing: border-box;
